@@ -3,40 +3,42 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Maps</title>
+  <title>Simple Map App</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <style>
+    /* Ensure the HTML and body take full height */
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+
+    /* Make the map fill the entire page */
     #map {
-      height: 100vh;
+      height: 100%;
       width: 100%;
     }
   </style>
 </head>
 <body>
+  <!-- Map container -->
   <div id="map"></div>
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-  <script>
-    var map = L.map('map').setView([51.505, -0.09], 13);  // Default view (London)
 
+  <!-- Leaflet.js library -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+  <script>
+    // Initialize the map and set the view to London's coordinates
+    var map = L.map('map').setView([51.505, -0.09], 13);  // Coordinates for London
+
+    // Add OpenStreetMap tile layer
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(function(position) {
-        var userLat = position.coords.latitude;
-        var userLon = position.coords.longitude;
-
-        map.setView([userLat, userLon], 13);
-
-        L.marker([userLat, userLon]).addTo(map)
-          .bindPopup("You are here")
-          .openPopup();
-      }, function() {
-        alert("failed");
-      });
-    }
-
+    // Add a marker at London's coordinates
+    L.marker([51.505, -0.09]).addTo(map)
+      .bindPopup("You are in London")
+      .openPopup();
   </script>
 </body>
 </html>
