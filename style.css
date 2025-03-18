@@ -1,0 +1,5 @@
+/* Make the map fill the whole page */
+#map {
+  height: 100vh;
+  width: 100%;
+}
